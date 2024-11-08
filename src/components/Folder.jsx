@@ -10,13 +10,21 @@ import {
   VscEdit,
   VscTrash,
   VscArrowRight,
+  // VscBook,
+  // VscEye,
+  // VscPlay,
+  // VscFileMedia,
+  // VscQuestion,
+  // VscCollapseAll,
+  // VscNote,
+  // VscProject
 } from "react-icons/vsc";
 
 const Folder = ({
   handleInsertNode,
   handleDeleteNode,
   handleUpdateFolder,
-  explorerData,
+  data,
   left,
   handleCopyButton,
 }) => {
@@ -26,7 +34,7 @@ const Folder = ({
     handleUpdateFolder: PropTypes.func.isRequired,
     left: PropTypes.bool.isRequired,
     handleCopyButton: PropTypes.func,
-    explorerData: PropTypes.shape({
+    data: PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       isFolder: PropTypes.bool.isRequired,
@@ -35,7 +43,7 @@ const Folder = ({
   };
 
   const [nodeName, setNodeName] = useState(
-    explorerData?.name ? explorerData.name : ""
+    data?.name ? data.name : ""
   );
   const [expand, setExpand] = useState(false);
   const [showInput, setShowInput] = useState({
@@ -67,19 +75,19 @@ const Folder = ({
 
   const handleDeleteFolder = (e) => {
     e.stopPropagation();
-    handleDeleteNode(explorerData.id);
+    handleDeleteNode(data.id);
   };
 
   const onAdd = (e) => {
     if (e.keyCode === 13 && e.target.value) {
-      handleInsertNode(explorerData.id, e.target.value, showInput.isFolder);
+      handleInsertNode(data.id, e.target.value, showInput.isFolder);
       setShowInput({ ...showInput, visible: false });
     }
   };
 
   const onUpdate = (e) => {
     if (e.keyCode === 13 && e.target.value) {
-      handleUpdateFolder(explorerData.id, e.target.value, true);
+      handleUpdateFolder(data.id, e.target.value, true);
       setUpdateInput({ ...updateInput, visible: false });
     }
   };
@@ -95,38 +103,43 @@ const Folder = ({
   const handleDrop = (e) => {
     e.preventDefault();
     const draggedItem = JSON.parse(e.dataTransfer.getData("text/plain"));
+    const target = JSON.parse(e.currentTarget.getAttribute('data'));
+    console.log("target", target);
     
-    if (explorerData.isFolder) {
+    if (target.isFolder) {
       if (draggedItem.isFolder) {
-        var copiedId = handleInsertNode(explorerData.id, draggedItem.name, draggedItem.isFolder);
+        var copiedId = handleInsertNode(target.id, draggedItem.name, draggedItem.isFolder);
         draggedItem.items.forEach(item => {
           handleInsertNode(copiedId.id, item.name, item.isFolder);
         });
-        console.log("Copied folder items:", draggedItem);
-      } else {
-        handleInsertNode(explorerData.id, draggedItem.name, draggedItem.isFolder);
-        console.log("Copied file:", draggedItem);
+        console.log("Copied folder items:", draggedItem, "copiedId", copiedId);
+      }
+      else {
+        var copiedIdFile = handleInsertNode(target.id, draggedItem.name, draggedItem.isFolder);
+        console.log("Copied folder items:", draggedItem, "copiedId", copiedIdFile);
       }
     }
     handleUpdateFolder();
   };
   
   const handleDragOver = (e) => {
-    e.preventDefault(); // Prevent default to allow drop
+    e.preventDefault();
   };
 
-  if (explorerData.isFolder) {
-    console.log("nodeName", nodeName);
+  // console.log(data);
+  if (data.isFolder) {
     return (
       <div>
         <div
           className="folder"
           style={{ cursor: "pointer" }}
           onClick={() => setExpand(!expand)}
-          // draggable
-          onDragStart={(e) => handleDragStart(e, explorerData)}
+          draggable
+          onDragStart={(e) => handleDragStart(e, data)}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
+          data={JSON.stringify(data)}
+          key={data.id}
         >
           <span>
             {expand ? <VscChevronDown /> : <VscChevronRight />} <VscFolder />
@@ -142,7 +155,7 @@ const Folder = ({
                 onKeyDown={onUpdate}
               />
             ) : (
-              <label>{explorerData.name}</label>
+              <label>{data.name}</label>
             )}
           </span>
 
@@ -152,7 +165,7 @@ const Folder = ({
             </button>
             <button
               onClick={(e) =>
-                handleUpdateFolderButton(e, true, explorerData.name)
+                handleUpdateFolderButton(e, true, data.name)
               }
             >
               <VscEdit />
@@ -183,13 +196,13 @@ const Folder = ({
               />
             </div>
           )}
-          {explorerData.items.map((item, index) => {
+          {data.items.map((item, index) => {
             return (
               <Folder
                 handleDeleteNode={handleDeleteNode}
                 handleInsertNode={handleInsertNode}
                 handleUpdateFolder={handleUpdateFolder}
-                explorerData={item}
+                data={item}
                 key={index}
                 left={left}
                 handleCopyButton={handleCopyButton}
@@ -199,11 +212,12 @@ const Folder = ({
         </div>
       </div>
     );
-  } else {
+  }
+  else {
     return (
       <div className="folder"
          draggable 
-         onDragStart={(e) => handleDragStart(e, explorerData)} 
+         onDragStart={(e) => handleDragStart(e, data)} 
          onDragOver={handleDragOver} 
          onDrop={handleDrop}>
         <span>
@@ -218,7 +232,7 @@ const Folder = ({
               onKeyDown={onUpdate}
             />
           ) : (
-            <label>{explorerData.name}</label>
+            <label>{data.name}</label>
           )}
         </span>
         <div className="buttons-container">
@@ -227,13 +241,13 @@ const Folder = ({
           </button>
           <button
             onClick={(e) =>
-              handleUpdateFolderButton(e, false, explorerData.name)
+              handleUpdateFolderButton(e, false, data.name)
             }
           >
             <VscEdit />
           </button>
           {
-            left && <button onClick={(e) => handleCopyButton(e, false, explorerData.name)}>
+            left && <button onClick={(e) => handleCopyButton(e, false, data.name)}>
               <VscArrowRight />
             </button>
           }

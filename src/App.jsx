@@ -52,7 +52,7 @@ function App() {
             handleInsertNode={handleInsertNode}
             handleDeleteNode={handleDeleteNode}
             handleUpdateFolder={handleUpdateFolder}
-            explorerData={explorerData}
+            data={explorerData}
             left = {true}
             handleCopyButton = {handleCopyButton}
           />
@@ -62,7 +62,7 @@ function App() {
             handleInsertNode={handleInsertNodeT}
             handleDeleteNode={handleDeleteNodeT}
             handleUpdateFolder={handleUpdateFolderT}
-            explorerData={myData}
+            data={myData}
             left = {false}
             handleCopyButton = {handleCopyButton}
           />
