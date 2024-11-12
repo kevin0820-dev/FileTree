@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #4e4c4c;
 }
 
 * {
@@ -23,13 +24,13 @@ body {
 
 .folder-container {
   padding: 5px;
-  background-color: #393E41;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
 }
 
 .folder:hover {
-  background-color: rgb(120, 120, 120);
+  background-color: rgb(194, 186, 186);
   border-radius: 5px;
 }
 .folder:hover .buttons-container {
@@ -41,7 +42,7 @@ body {
 }
 
 .folder {
-  background-color: #393E41;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,13 +52,13 @@ body {
 }
 
 .folder>span {
-  color: #fff;
+  color: #000;
 
 }
 
 button {
   background-color: transparent;
-  color: #fff;
+  color: #000;
   border: 0;
   cursor: pointer;
   padding: 0 4px;
@@ -71,7 +72,7 @@ button {
 }
 
 .addItem {
-  background-color: #393E41;
+  background-color: #fff;
   align-items: center;
   padding: 5px 3px;
   width: 300px;
@@ -79,7 +80,7 @@ button {
 }
 
 .addItem>span {
-  color: white;
+  color: 000;
   padding-right: 5px;
 }
 

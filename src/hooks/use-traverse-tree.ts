@@ -4,27 +4,35 @@ const useTraverseTree = () => {
   function insertNode(
     tree: FolderData,
     folderId: string,
-    itemName: string,
+    copiedItem: FolderData,
     isFolder: boolean
   ): FolderData | undefined {
     if (tree.id === folderId && tree.isFolder) {
       const newItem = {
         id: new Date().getTime().toString(),
-        name: itemName,
+        name: copiedItem.name,
         isFolder: isFolder,
-        items: [],
+        items: copiedItem.items,
       };
-      tree.items.unshift(newItem);
-      return newItem;
-    }
-
+      const newItemUpdated = updateIds(newItem);
+      tree.items.unshift(newItemUpdated);
+      return newItemUpdated;
+    }    
     for (const obj of tree.items) {
-      const res = insertNode(obj, folderId, itemName, isFolder);
+      const res = insertNode(obj, folderId, copiedItem, isFolder);
       if (res) {
         return res;
       }
     }
   }
+  
+  const updateIds = (node: FolderData): FolderData => {
+    const updatedNode = { ...node, id: (new Date().getTime().toString() + node.id) }; // Update the ID
+    if (updatedNode.items) {
+      updatedNode.items = updatedNode.items.map(updateIds); // Recursively update children's IDs
+    }
+    return updatedNode;
+  };
 
   function deleteNode(tree: FolderData, folderId: string): FolderData | null {
     if (tree.id === folderId) {

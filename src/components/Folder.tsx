@@ -88,22 +88,17 @@ const Folder: React.FC<FolderProps> = ({
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const draggedItem = JSON.parse(e.dataTransfer.getData("text/plain"));
-    const target = JSON.parse(e.currentTarget.getAttribute('data') || '{}');
+    const target = JSON.parse(e.currentTarget.getAttribute('data-data') || '{}');
     console.log("target", target);
+    console.log("draggedItem", draggedItem);
     
     if (target.isFolder) {
-      if (draggedItem.isFolder) {
-        const copiedId = handleInsertNode(target.id, draggedItem.name, draggedItem.isFolder);
-        draggedItem.items.forEach((item: any) => {
-          if(copiedId?.id) handleInsertNode(copiedId.id, item.name, item.isFolder);
-        });
+      // if (draggedItem.isFolder) {
+        const copiedId = handleInsertNode(target.id, draggedItem, draggedItem.isFolder);
         console.log("Copied folder items:", draggedItem, "copiedId", copiedId);
-      } else {
-        const copiedIdFile = handleInsertNode(target.id, draggedItem.name, draggedItem.isFolder);
-        console.log("Copied folder items:", draggedItem, "copiedId", copiedIdFile);
-      }
+      // }
     }
-    if(data?.id) handleUpdateFolder(data.id, draggedItem.name, draggedItem.isFolder);
+    // if(data?.id) handleUpdateFolder(data.id, draggedItem.name, draggedItem.isFolder);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -185,7 +180,7 @@ const Folder: React.FC<FolderProps> = ({
       </div>
     );
   } else {
-    return (
+    return (      
       <div
         className="folder"
         draggable
