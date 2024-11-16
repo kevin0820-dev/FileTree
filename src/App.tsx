@@ -11,7 +11,7 @@ function App() {
   const [myData, setMyData] = useState<FolderData | null>(customData);
   const { insertNode, deleteNode, updateNode } = useTraverseTree();
   
-  const handleInsertNode = (folderId: string, itemName: string, isFolder: boolean) => {
+  const handleInsertNode = (folderId: string, itemName: FolderData, isFolder: boolean) => {
     if(explorerData){
       const finalItem = insertNode(explorerData, folderId, itemName, isFolder);
       return finalItem;
@@ -32,7 +32,7 @@ function App() {
     }
   };
 
-  const handleInsertNodeT = (folderId: string, itemName: string, isFolder: boolean) => {
+  const handleInsertNodeT = (folderId: string, itemName: FolderData, isFolder: boolean) => {
     if(myData){
       const finalItem = insertNode(myData, folderId, itemName, isFolder);
       return finalItem;
@@ -53,7 +53,7 @@ function App() {
     }
   };
 
-  const handleCopyButton = (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => {
+  const handleCopyButton = (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: FolderData) => {
     console.log("copy");
     if(myData){
       const finalItem = insertNode(myData, myData.id, name, isFolder);

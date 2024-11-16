@@ -13,12 +13,12 @@ import {
 import { FolderData } from '../types'; // Import your types
 
 interface FolderProps {
-  handleInsertNode: (folderId: string, itemName: string, isFolder: boolean) => FolderData|undefined;
+  handleInsertNode: (folderId: string, itemName: FolderData, isFolder: boolean) => FolderData|undefined;
   handleDeleteNode: (folderId: string) => void;
   handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
   data: FolderData|null; // Use the FolderData type
   left: boolean;
-  handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
+  handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: FolderData) => void;
 }
 
 const Folder: React.FC<FolderProps> = ({
@@ -65,14 +65,14 @@ const Folder: React.FC<FolderProps> = ({
 
   const onAdd = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13 && e.currentTarget.value) {
-      if(data?.id) handleInsertNode(data.id, e.currentTarget.value, showInput.isFolder as boolean);
+      if(data?.id) handleInsertNode(data.id, JSON.parse(e.currentTarget.getAttribute('data-data') || '{}'), showInput.isFolder as boolean);
       setShowInput({ ...showInput, visible: false });
     }
   };
 
   const onUpdate = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13 && e.currentTarget.value) {
-      if(data?.id) handleUpdateFolder(data.id, e.currentTarget.value, true);
+      if(data?.id) handleUpdateFolder(data.id, JSON.parse(e.currentTarget.getAttribute('data-data') || '{}'), true);
       setUpdateInput({ ...updateInput, visible: false });
     }
   };
@@ -165,7 +165,7 @@ const Folder: React.FC<FolderProps> = ({
               />
             </div>
           )}
-          {data.items.map((item, index) => (
+          {data.items?.map((item, index) => (
             <Folder
               handleDeleteNode={handleDeleteNode}
               handleInsertNode={handleInsertNode}
@@ -213,7 +213,7 @@ const Folder: React.FC<FolderProps> = ({
             </button>
           )}
           {left && data && (
-            <button onClick={(e) => handleCopyButton(e, false, data.name)}>
+            <button onClick={(e) => handleCopyButton(e, false, data)}>
               <VscArrowRight />
             </button>
           )}

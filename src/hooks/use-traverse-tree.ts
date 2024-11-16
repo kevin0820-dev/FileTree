@@ -25,7 +25,6 @@ const useTraverseTree = () => {
       }
     }
   }
-  
   const updateIds = (node: FolderData): FolderData => {
     const updatedNode = { ...node, id: (new Date().getTime().toString() + node.id) }; // Update the ID
     if (updatedNode.items) {
