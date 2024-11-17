@@ -65,14 +65,20 @@ const Folder: React.FC<FolderProps> = ({
 
   const onAdd = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13 && e.currentTarget.value) {
-      if(data?.id) handleInsertNode(data.id, JSON.parse(e.currentTarget.getAttribute('data-data') || '{}'), showInput.isFolder as boolean);
+      const newFolder = {
+        id: new Date().getTime().toString(),
+        name: e.currentTarget.value,
+        isFolder: showInput.isFolder as boolean,
+        items: [],
+      };
+      if(data?.id) handleInsertNode(data.id, newFolder, showInput.isFolder as boolean);
       setShowInput({ ...showInput, visible: false });
     }
   };
 
   const onUpdate = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13 && e.currentTarget.value) {
-      if(data?.id) handleUpdateFolder(data.id, JSON.parse(e.currentTarget.getAttribute('data-data') || '{}'), true);
+      if(data?.id) handleUpdateFolder(data.id, e.currentTarget.value, true);
       setUpdateInput({ ...updateInput, visible: false });
     }
   };
@@ -213,7 +219,7 @@ const Folder: React.FC<FolderProps> = ({
             </button>
           )}
           {left && data && (
-            <button onClick={(e) => handleCopyButton(e, false, data)}>
+            <button onClick={(e) => handleCopyButton(e, false, data.name)}>
               <VscArrowRight />
             </button>
           )}
