@@ -51,9 +51,17 @@ body {
   position: relative;
 }
 
+.wrapper {
+  height: 100%;
+}
+
+.folder-wrapper {
+  height: 100%;
+}
+
 .folder>span {
   color: #000;
-
+  display: ruby;
 }
 
 button {
@@ -82,6 +90,7 @@ button {
 .addItem>span {
   color: 000;
   padding-right: 5px;
+  display: ruby;
 }
 
 .buttons-container {

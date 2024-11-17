@@ -23,23 +23,23 @@ import { FolderData } from '../types';
 
 type IconGroup = keyof typeof iconMap;
 const iconMap = {
-  "folder": <VscFolder />,
-  "file": <VscFile />,
-  "collection": <VscListUnordered />,
-  "image": <VscDeviceCamera />,
-  "document": <VscFilePdf />,
-  "protocol": <VscBook />,
-  "feasibility": <VscQuote />,
-  "google": <VscCombine />,
-  "note": <VscNotebook />,
-  "study": <VscPlayCircle />,
-  "transcription": <VscMention />,
+  "folder": <VscFolder className="text-blue-500"/>,
+  "file": <VscFile className="text-green-500"/>,
+  "collection": <VscListUnordered className="text-red-500"/>,
+  "image": <VscDeviceCamera className="text-purple-500"/>,
+  "document": <VscFilePdf className="text-orange-500"/>,
+  "protocol": <VscBook className="text-yellow-500"/>,
+  "feasibility": <VscQuote className="text-pink-500"/>,
+  "google": <VscCombine className="text-blue-500"/>,
+  "note": <VscNotebook className="text-green-500"/>,
+  "study": <VscPlayCircle className="text-purple-500"/>,
+  "transcription": <VscMention className="text-orange-500"/>,
 }
 interface FolderProps {
   handleInsertNode: (folderId: string, itemName: FolderData, isFolder: boolean) => FolderData|undefined;
   handleDeleteNode: (folderId: string) => void;
   handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
-  data: FolderData|null; // Use the FolderData type
+  data: FolderData|null;
   left: boolean;
   handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
 }
@@ -119,25 +119,34 @@ const Folder: React.FC<FolderProps> = ({
     e.preventDefault();
     const draggedItem = JSON.parse(e.dataTransfer.getData("text/plain"));
     const target = JSON.parse(e.currentTarget.getAttribute('data-data') || '{}');
-    console.log("target", target);
-    console.log("draggedItem", draggedItem);
-    
+
+    if(target.id == '1'){
+      return;
+    }
     if (target.isFolder) {
       // if (draggedItem.isFolder) {
-        const copiedId = handleInsertNode(target.id, draggedItem, draggedItem.isFolder);
-        console.log("Copied folder items:", draggedItem, "copiedId", copiedId);
-      // }
+      const copiedId = handleInsertNode(target.id, draggedItem, draggedItem.isFolder);
+      console.log("Copied folder items:", draggedItem, "copiedId", copiedId);
+    // }
     }
-    // if(data?.id) handleUpdateFolder(data.id, draggedItem.name, draggedItem.isFolder);
+    if(data?.id) handleUpdateFolder();
+    e.stopPropagation();
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
+  
+  const handleWrapperDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const draggedItem = JSON.parse(e.dataTransfer.getData("text/plain"));
+    handleInsertNode('1', draggedItem, draggedItem.isFolder);  
+    handleUpdateFolder();
+  }
 
   if (data && data.isFolder) {
     return (
-      <div>
+      <div className="wrapper" onDragOver={(e) => e.preventDefault()} onDrop={handleWrapperDrop}>
         <div
           className="folder"
           style={{ cursor: "pointer" }}

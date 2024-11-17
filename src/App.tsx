@@ -4,7 +4,7 @@ import folderData from "./data/folderData";
 import customData from "./data/myData";
 import Folder from "./components/Folder";
 import useTraverseTree from "./hooks/use-traverse-tree";
-import { FolderData } from './types'; // Import your types
+import { FolderData } from './types';
 
 function App() {
   const [explorerData, setExplorerData] = useState<FolderData | null>(folderData);
