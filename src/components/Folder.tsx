@@ -9,16 +9,39 @@ import {
   VscEdit,
   VscTrash,
   VscArrowRight,
+  VscListUnordered,
+  VscPlayCircle,
+  VscCombine, 
+  VscBook,
+  VscDeviceCamera,
+  VscFilePdf,
+  VscQuote,
+  VscNotebook,
+  VscMention,
 } from "react-icons/vsc";
-import { FolderData } from '../types'; // Import your types
+import { FolderData } from '../types';
 
+type IconGroup = keyof typeof iconMap;
+const iconMap = {
+  "folder": <VscFolder />,
+  "file": <VscFile />,
+  "collection": <VscListUnordered />,
+  "image": <VscDeviceCamera />,
+  "document": <VscFilePdf />,
+  "protocol": <VscBook />,
+  "feasibility": <VscQuote />,
+  "google": <VscCombine />,
+  "note": <VscNotebook />,
+  "study": <VscPlayCircle />,
+  "transcription": <VscMention />,
+}
 interface FolderProps {
   handleInsertNode: (folderId: string, itemName: FolderData, isFolder: boolean) => FolderData|undefined;
   handleDeleteNode: (folderId: string) => void;
   handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
   data: FolderData|null; // Use the FolderData type
   left: boolean;
-  handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: FolderData) => void;
+  handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
 }
 
 const Folder: React.FC<FolderProps> = ({
@@ -69,6 +92,7 @@ const Folder: React.FC<FolderProps> = ({
         id: new Date().getTime().toString(),
         name: e.currentTarget.value,
         isFolder: showInput.isFolder as boolean,
+        group: showInput.isFolder ? "folder" : "file",
         items: [],
       };
       if(data?.id) handleInsertNode(data.id, newFolder, showInput.isFolder as boolean);
@@ -126,7 +150,7 @@ const Folder: React.FC<FolderProps> = ({
           key={data.id}
         >
           <span>
-            {expand ? <VscChevronDown /> : <VscChevronRight />} <VscFolder />
+            {expand ? <VscChevronDown /> : <VscChevronRight />} {iconMap[data.group as IconGroup]}
             {updateInput.visible ? (
               <input
                 type="text"
@@ -195,7 +219,7 @@ const Folder: React.FC<FolderProps> = ({
         onDrop={handleDrop}
       >
         <span>
-          <VscFile />
+          {iconMap[data?.group as IconGroup]}
           {updateInput.visible ? (
             <input
               type="text"

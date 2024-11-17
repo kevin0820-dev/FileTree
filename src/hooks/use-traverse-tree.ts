@@ -12,6 +12,7 @@ const useTraverseTree = () => {
         id: new Date().getTime().toString(),
         name: copiedItem.name,
         isFolder: isFolder,
+        group: copiedItem.group,
         items: copiedItem.items,
       };
       const newItemUpdated = updateIds(newItem);

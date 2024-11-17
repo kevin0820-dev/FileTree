@@ -53,13 +53,19 @@ function App() {
     }
   };
 
-  const handleCopyButton = (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: FolderData) => {
+  const handleCopyButton = (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => {
     console.log("copy");
-    if(myData){
-      const finalItem = insertNode(myData, myData.id, name, isFolder);
-      if(finalItem) setMyData(finalItem);
+    const copiedItem = {
+      id: new Date().getTime().toString(),
+      name: name,
+      isFolder: isFolder,
+      group: isFolder ? "folder" : "file",
+      items: [],
     }
-    // handleUpdateFolder();
+    if(myData){
+      const finalItem = insertNode(myData, myData.id, copiedItem, isFolder);
+    }
+    handleUpdateFolder();
   };
 
   return (
