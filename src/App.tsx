@@ -1,100 +1,29 @@
-import { useState } from "react";
+
 import "./App.css";
 import folderData from "./data/folderData";
 import customData from "./data/myData";
-import Folder from "./components/Folder";
-import useTraverseTree from "./hooks/use-traverse-tree";
-import { FolderData } from './types';
+import FilePane from "./components/FilePane/FilePane";
+import { useState } from "react";
+import { FolderData } from "./types";
 
 function App() {
 
-  const [explorerData, setExplorerData] = useState<FolderData | null>(folderData);
+  const [rightData, setRightData] = useState<FolderData | null>(folderData);
   const [myData, setMyData] = useState<FolderData | null>(customData);
-  const { insertNode, deleteNode, updateNode } = useTraverseTree();
-  
-  const handleInsertNode = (folderId: string, itemName: FolderData, isFolder: boolean) => {
-    if(explorerData){
-      const finalItem = insertNode(explorerData, folderId, itemName, isFolder);
-      return finalItem;
-    }
-  };
-
-  const handleDeleteNode = (folderId: string) => {
-    if(explorerData){
-      const finalItem = deleteNode(explorerData, folderId);
-      setExplorerData(finalItem);
-    }
-  };
-
-  const handleUpdateFolder = (id: string, updatedValue: string) => {
-    if(explorerData){
-      const finalItem = updateNode(explorerData, id, updatedValue);
-      setExplorerData(finalItem);
-    }
-  };
-
-  const handleInsertNodeT = (folderId: string, itemName: FolderData, isFolder: boolean) => {
-    if(myData){
-      const finalItem = insertNode(myData, folderId, itemName, isFolder);
-      return finalItem;
-    }
-  };
-
-  const handleDeleteNodeT = (folderId: string) => {
-    if(myData){
-      const finalItem = deleteNode(myData, folderId);
-      setMyData(finalItem);
-    }
-  };
-
-  const handleUpdateFolderT = (id: string, updatedValue: string) => {
-    if(myData){
-      const finalItem = updateNode(myData, id, updatedValue);
-      setMyData(finalItem);
-    }
-  };
-
-  const handleCopyButton = (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => {
-    console.log("copy");
-    const copiedItem = {
-      id: new Date().getTime().toString(),
-      name: name,
-      isFolder: isFolder,
-      group: isFolder ? "folder" : "file",
-      shared: myData?.shared ? myData.shared : "by",
-      items: [],
-    }
-    if(myData){
-      const finalItem = insertNode(myData, myData.id, copiedItem, isFolder);
-    }
-    if(myData?.id) handleUpdateFolderT(myData.id, myData.name);
-  };
 
   return (
     <div className="App">
       <div className="grid grid-cols-[0.5fr_2fr] gap-4 h-[calc(100vh-10px)]">
-        <div className="p-1.25 bg-white flex flex-col">
-          <Folder
-            handleInsertNode={handleInsertNode}
-            handleDeleteNode={handleDeleteNode}
-            handleUpdateFolder={handleUpdateFolder}
-            data={explorerData}
-            left={true}
-            handleCopyButton={handleCopyButton}
-            root="with"
-          />
-        </div>
-        <div className="p-1.25 bg-white flex flex-col">
-          <Folder
-            handleInsertNode={handleInsertNodeT}
-            handleDeleteNode={handleDeleteNodeT}
-            handleUpdateFolder={handleUpdateFolderT}
-            data={myData}
-            left={false}
-            handleCopyButton={handleCopyButton}
-            root="by"
-          />
-        </div>
+        <FilePane
+          data={rightData}
+          setData={setRightData}
+          left={true}
+        />
+        <FilePane
+          data={myData}
+          setData={setMyData}
+          left={false}
+        />
       </div>
     </div>
   );

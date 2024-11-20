@@ -19,8 +19,8 @@ import {
     VscNotebook,
     VscMention,
 } from "react-icons/vsc";
-import { FolderData } from "../types";
-import Folder from "./Folder";
+import { FolderData } from "../../../types";
+import Folder from "../Folder";
 
 type IconGroup = keyof typeof iconMap;
 const iconMap = {

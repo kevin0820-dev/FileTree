@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import FolderItem from "./FolderItem";
-import FileItem from "./FileItem";
+import FolderItem from "./Items/FolderItem";
+import FileItem from "./Items/FileItem";
 
-import { FolderData } from '../types';
+import { FolderData } from '../../types';
 interface FolderProps {
   handleInsertNode: (folderId: string, itemName: FolderData, isFolder: boolean) => FolderData|undefined;
   handleDeleteNode: (folderId: string) => void;
