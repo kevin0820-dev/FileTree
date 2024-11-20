@@ -3,6 +3,7 @@ export interface Item {
     name: string;
     isFolder: boolean;
     group: string;
+    shared: string;
     items: Item[];
 }
   
@@ -11,5 +12,6 @@ export interface FolderData {
     name: string;
     isFolder: boolean;
     group: string;
+    shared: string;
     items: Item[];
 }

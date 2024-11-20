@@ -5,12 +5,14 @@ const folderData: FolderData = {
   name: "Shared",
   isFolder: true,
   group: "folder",
+  shared: "with",
   items: [
     {
       id: "2",
       name: "Transcriptions",
       isFolder: true,
       group: "collection",
+      shared: "with",
       items: [],
     },
     {
@@ -18,6 +20,7 @@ const folderData: FolderData = {
       name: "Pubmed Research",
       isFolder: true,
       group: "image",
+      shared: "with",
       items: [],
     },
     {
@@ -25,6 +28,7 @@ const folderData: FolderData = {
       name: "Trials",
       isFolder: true,
       group: "document",
+      shared: "with",
       items: [],
     },
     {
@@ -32,13 +36,14 @@ const folderData: FolderData = {
       name: "Protocals",
       isFolder: true,
       group: "protocol",
+      shared: "with",
       items: [
-        
         {
           id: "6",
           name: "Breast Cancer Protocol",
           isFolder: false,
           group: "image",
+          shared: "with",
           items: [],
         },
         {
@@ -46,6 +51,7 @@ const folderData: FolderData = {
           name: "Lung Cancer Protocol",
           isFolder: false,
           group: "protocol",
+          shared: "with",
           items: [],
         },
       ],
@@ -55,12 +61,14 @@ const folderData: FolderData = {
       name: "Feasibility Questionnaires",
       isFolder: true,
       group: "feasibility",
+      shared: "with",
       items: [
         {
           id: "9",
           name: "Georgetown Brain Q",
           isFolder: false,
           group: "feasibility",
+          shared: "with",
           items: [],
         },
         {
@@ -68,6 +76,7 @@ const folderData: FolderData = {
           name: "MD Anderson Breast Q",
           isFolder: false,
           group: "document",
+          shared: "with",
           items: [],
         },
         {
@@ -75,6 +84,7 @@ const folderData: FolderData = {
           name: "Hopkins Lung Q",
           isFolder: false,
           group: "note",
+          shared: "with",
           items: [],
         },
       ],
@@ -84,12 +94,14 @@ const folderData: FolderData = {
       name: "Documents",
       isFolder: true,
       group: "google",
+      shared: "with",
       items: [
         {
           id: "13",
           name: "FDA Drug Approval",
           isFolder: false,
           group: "study",
+          shared: "with",
           items: [],
         },
         {
@@ -97,6 +109,7 @@ const folderData: FolderData = {
           name: "Newest Breast Cancer Treatments",
           isFolder: false,
           group: "note",
+          shared: "with",
           items: [],
         },
       ],
@@ -106,12 +119,14 @@ const folderData: FolderData = {
       name: "Collections",
       isFolder: true,
       group: "note",
+      shared: "with",
       items: [
         {
           id: "16",
           name: "USC Cancer Protocols",
           isFolder: false,
           group: "file",
+          shared: "with",
           items: [],
         },
         {
@@ -119,6 +134,7 @@ const folderData: FolderData = {
           name: "Mayo Protocols",
           isFolder: false,
           group: "file",
+          shared: "with",
           items: [],
         },
       ],
@@ -128,6 +144,7 @@ const folderData: FolderData = {
       name: "Notes",
       isFolder: false,
       group: "file",
+      shared: "with",
       items: [],
     },
   ],

@@ -61,6 +61,7 @@ function App() {
       name: name,
       isFolder: isFolder,
       group: isFolder ? "folder" : "file",
+      shared: myData?.shared ? myData.shared : "by",
       items: [],
     }
     if(myData){
@@ -80,6 +81,7 @@ function App() {
             data={explorerData}
             left={true}
             handleCopyButton={handleCopyButton}
+            root="with"
           />
         </div>
         <div className="folder-container">
@@ -90,6 +92,7 @@ function App() {
             data={myData}
             left={false}
             handleCopyButton={handleCopyButton}
+            root="by"
           />
         </div>
       </div>

@@ -18,10 +18,10 @@ import {
   VscQuote,
   VscNotebook,
   VscMention,
-  VscShare,
-  VscLiveShare,
-  VscInspect,
 } from "react-icons/vsc";
+
+import { FaHandPointLeft, FaHandPointRight } from "react-icons/fa6";
+
 import { FolderData } from '../types';
 
 type IconGroup = keyof typeof iconMap;
@@ -44,6 +44,7 @@ interface FolderProps {
   handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
   data: FolderData|null;
   left: boolean;
+  root: string;
   handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
 }
 
@@ -54,6 +55,7 @@ const Folder: React.FC<FolderProps> = ({
   data,
   left,
   handleCopyButton,
+  root,
 }) => {
   const [nodeName, setNodeName] = useState<string>(data?.name || "");
   const [expand, setExpand] = useState<boolean>(false);
@@ -96,6 +98,7 @@ const Folder: React.FC<FolderProps> = ({
         name: e.currentTarget.value,
         isFolder: showInput.isFolder as boolean,
         group: showInput.isFolder ? "folder" : "file",
+        shared: root,
         items: [],
       };
       if(data?.id) handleInsertNode(data.id, newFolder, showInput.isFolder as boolean);
@@ -162,6 +165,8 @@ const Folder: React.FC<FolderProps> = ({
           key={data.id}
         >
           <span>
+            {root === "with" && data.shared === "by" && <FaHandPointLeft />}
+            {root === "by" && data.shared === "with" && <FaHandPointRight />}
             {expand ? <VscChevronDown /> : <VscChevronRight />} {iconMap[data.group as IconGroup]}
             {updateInput.visible ? (
               <input
@@ -215,6 +220,7 @@ const Folder: React.FC<FolderProps> = ({
               data={item}
               key={index}
               left={left}
+              root={root}
               handleCopyButton={handleCopyButton}
             />
           ))}
@@ -229,8 +235,10 @@ const Folder: React.FC<FolderProps> = ({
         onDragStart={(e) => handleDragStart(e, data)}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-      >
+      >        
         <span>
+          {root === "with" && data?.shared === "by" && <FaHandPointLeft />}
+          {root === "by" && data?.shared === "with" && <FaHandPointRight />}
           {iconMap[data?.group as IconGroup]}
           {updateInput.visible ? (
             <input

@@ -5,12 +5,14 @@ const myData:FolderData = {
   name: "My Folder",
   isFolder: true,
   group: "folder",
+  shared: "by",
   items: [{
     id: "2",
     name: "Transcriptions",
     isFolder: true,
     group: "transcription",
     items: [],
+    shared: "by",
   }],
 };
 
