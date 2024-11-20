@@ -2,7 +2,7 @@ import { FolderData } from "../types";
 
 const folderData: FolderData = {
   id: "1",
-  name: "Shared with me",
+  name: "Shared",
   isFolder: true,
   group: "folder",
   items: [

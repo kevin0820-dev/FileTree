@@ -8,6 +8,17 @@ const useTraverseTree = () => {
     isFolder: boolean
   ): FolderData | undefined {
     if (tree.id === folderId && tree.isFolder) {
+      let isItemExists = false;
+      tree.items.forEach((item) => {
+        if(item.name === copiedItem.name){
+          alert('Item already exists!');
+          isItemExists = true;
+          return;
+        }
+      })
+      if(isItemExists){
+        return;
+      }
       const newItem = {
         id: new Date().getTime().toString(),
         name: copiedItem.name,

@@ -18,6 +18,9 @@ import {
   VscQuote,
   VscNotebook,
   VscMention,
+  VscShare,
+  VscLiveShare,
+  VscInspect,
 } from "react-icons/vsc";
 import { FolderData } from '../types';
 

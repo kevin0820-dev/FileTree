@@ -7,6 +7,7 @@ import useTraverseTree from "./hooks/use-traverse-tree";
 import { FolderData } from './types';
 
 function App() {
+
   const [explorerData, setExplorerData] = useState<FolderData | null>(folderData);
   const [myData, setMyData] = useState<FolderData | null>(customData);
   const { insertNode, deleteNode, updateNode } = useTraverseTree();
