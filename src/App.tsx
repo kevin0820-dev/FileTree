@@ -72,8 +72,8 @@ function App() {
 
   return (
     <div className="App">
-      <div className="folderContainerBody">
-        <div className="folder-container">
+      <div className="grid grid-cols-[0.5fr_2fr] gap-4 h-[calc(100vh-10px)]">
+        <div className="p-1.25 bg-white flex flex-col">
           <Folder
             handleInsertNode={handleInsertNode}
             handleDeleteNode={handleDeleteNode}
@@ -84,7 +84,7 @@ function App() {
             root="with"
           />
         </div>
-        <div className="folder-container">
+        <div className="p-1.25 bg-white flex flex-col">
           <Folder
             handleInsertNode={handleInsertNodeT}
             handleDeleteNode={handleDeleteNodeT}

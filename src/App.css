@@ -9,46 +9,18 @@ body {
   box-sizing: border-box;
 }
 
-.folderContainerBody {
-  display: grid;
-  grid-template-columns: 0.5fr 2fr;
-  grid-gap: 1em;
-  height: calc(100vh - 10px);
-}
-
 .empty-state {
   margin: 5px;
   display: flex;
   height: calc(100vh - 10px);
 }
 
-.folder-container {
-  padding: 5px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-}
-
-.folder:hover {
-  background-color: rgb(194, 186, 186);
-  border-radius: 5px;
-}
-.folder:hover .buttons-container {
-  visibility:visible;
-
-}
 .folder>div>button {
   font-size: 16px;
 }
 
-.folder {
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 3px;
-  width: 300px;
-  position: relative;
+.folder:hover .buttons-container {
+  visibility:visible;
 }
 
 .wrapper {
@@ -77,14 +49,6 @@ button {
   margin: 3px 5px;
   position: absolute;
   top: 2px;
-}
-
-.addItem {
-  background-color: #fff;
-  align-items: center;
-  padding: 5px 3px;
-  width: 300px;
-  position: relative;
 }
 
 .addItem>span {

@@ -154,7 +154,7 @@ const Folder: React.FC<FolderProps> = ({
     return (
       <div className="wrapper" onDragOver={(e) => e.preventDefault()} onDrop={handleWrapperDrop}>
         <div
-          className="folder"
+          className="folder bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
           style={{ cursor: "pointer" }}
           onClick={() => setExpand(!expand)}
           draggable
@@ -202,7 +202,7 @@ const Folder: React.FC<FolderProps> = ({
           style={{ display: expand ? "block" : "none", marginLeft: 20 }}
         >
           {showInput.visible && (
-            <div className="addItem">
+            <div className="addItem bg-white items-center p-[5px] w-[300px] relative">
               <span>{showInput.isFolder ? <VscFolder /> : <VscFile />}</span>
               <input
                 type="text"
@@ -230,7 +230,7 @@ const Folder: React.FC<FolderProps> = ({
   } else {
     return (      
       <div
-        className="folder"
+        className="folder bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
         draggable
         onDragStart={(e) => handleDragStart(e, data)}
         onDragOver={handleDragOver}
