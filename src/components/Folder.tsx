@@ -130,10 +130,7 @@ const Folder: React.FC<FolderProps> = ({
       return;
     }
     if (target.isFolder) {
-      // if (draggedItem.isFolder) {
       const copiedId = handleInsertNode(target.id, draggedItem, draggedItem.isFolder);
-      console.log("Copied folder items:", draggedItem, "copiedId", copiedId);
-    // }
     }
     if(data?.id) handleUpdateFolder(data.id, data.name, true);
     e.stopPropagation();
@@ -152,9 +149,9 @@ const Folder: React.FC<FolderProps> = ({
 
   if (data && data.isFolder) {
     return (
-      <div className="wrapper" onDragOver={(e) => e.preventDefault()} onDrop={handleWrapperDrop}>
+      <div className="h-full" onDragOver={(e) => e.preventDefault()} onDrop={handleWrapperDrop}>
         <div
-          className="folder bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
+          className="group bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
           style={{ cursor: "pointer" }}
           onClick={() => setExpand(!expand)}
           draggable
@@ -164,13 +161,14 @@ const Folder: React.FC<FolderProps> = ({
           data-data={JSON.stringify(data)}
           key={data.id}
         >
-          <span>
+          <span className="text-black flex items-center">
             {root === "with" && data.shared === "by" && <FaHandPointLeft />}
             {root === "by" && data.shared === "with" && <FaHandPointRight />}
             {expand ? <VscChevronDown /> : <VscChevronRight />} {iconMap[data.group as IconGroup]}
             {updateInput.visible ? (
               <input
                 type="text"
+                className="w-[75%] ml-[5px]"
                 value={nodeName}
                 onChange={handleChange}
                 autoFocus
@@ -178,21 +176,21 @@ const Folder: React.FC<FolderProps> = ({
                 onKeyDown={onUpdate}
               />
             ) : (
-              <label>{data.name}</label>
+              <span className="truncate max-w-36 hover:max-w-full">{data.name}</span>
             )}
           </span>
 
-          <div className="buttons-container">
-            <button onClick={handleDeleteFolder}>
+          <div className="flex invisible group-hover:visible">
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={handleDeleteFolder}>
               <VscTrash />
             </button>
-            <button onClick={(e) => handleUpdateFolderButton(e, true, data.name)}>
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => handleUpdateFolderButton(e, true, data.name)}>
               <VscEdit />
             </button>
-            <button onClick={(e) => handleNewFolderButton(e, true)}>
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => handleNewFolderButton(e, true)}>
               <VscNewFolder />
             </button>
-            <button onClick={(e) => handleNewFolderButton(e, false)}>
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => handleNewFolderButton(e, false)}>
               <VscNewFile />
             </button>
           </div>
@@ -202,8 +200,8 @@ const Folder: React.FC<FolderProps> = ({
           style={{ display: expand ? "block" : "none", marginLeft: 20 }}
         >
           {showInput.visible && (
-            <div className="addItem bg-white items-center p-[5px] w-[300px] relative">
-              <span>{showInput.isFolder ? <VscFolder /> : <VscFile />}</span>
+            <div className="bg-white flex items-center p-[5px] w-[300px] relative">
+              <span className="text-black flex items-center pr-[5px]">{showInput.isFolder ? <VscFolder /> : <VscFile />}</span>
               <input
                 type="text"
                 autoFocus
@@ -230,19 +228,20 @@ const Folder: React.FC<FolderProps> = ({
   } else {
     return (      
       <div
-        className="folder bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
+        className="bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
         draggable
         onDragStart={(e) => handleDragStart(e, data)}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >        
-        <span>
+        <span className="text-black flex items-center">
           {root === "with" && data?.shared === "by" && <FaHandPointLeft />}
           {root === "by" && data?.shared === "with" && <FaHandPointRight />}
           {iconMap[data?.group as IconGroup]}
           {updateInput.visible ? (
             <input
               type="text"
+              className="w-[75%] ml-[5px]"
               value={nodeName}
               onChange={handleChange}
               autoFocus
@@ -250,20 +249,20 @@ const Folder: React.FC<FolderProps> = ({
               onKeyDown={onUpdate}
             />
           ) : (
-            <label>{data ? data.name : ""}</label>
+            <span className="truncate max-w-36 hover:max-w-full">{data ? data.name : ""}</span>
           )}
         </span>
-        <div className="buttons-container">
-          <button onClick={handleDeleteFolder}>
+        <div className="flex invisible group-hover:visible">
+          <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={handleDeleteFolder}>
             <VscTrash />
           </button>
           {data && (
-            <button onClick={(e) => handleUpdateFolderButton(e, false, data.name)}>
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => handleUpdateFolderButton(e, false, data.name)}>
               <VscEdit />
             </button>
           )}
           {left && data && (
-            <button onClick={(e) => handleCopyButton(e, false, data.name)}>
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => handleCopyButton(e, false, data.name)}>
               <VscArrowRight />
             </button>
           )}
