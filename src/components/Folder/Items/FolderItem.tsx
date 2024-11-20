@@ -44,7 +44,6 @@ interface FolderItemProps {
     handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
     data: FolderData|null;
     left: boolean;
-    root: string;
     handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
     expand: boolean;
     setExpand: (expand: boolean) => void;
@@ -72,7 +71,6 @@ const FolderItem: React.FC<FolderItemProps> = ({
     data,
     left,
     handleCopyButton,
-    root,
     expand,
     setExpand,
     handleWrapperDrop,
@@ -105,8 +103,8 @@ const FolderItem: React.FC<FolderItemProps> = ({
             key={data?.id}
             >
             <span className="text-black flex items-center">
-                {root === "with" && data?.shared === "by" && <FaHandPointLeft />}
-                {root === "by" && data?.shared === "with" && <FaHandPointRight />}
+                {left && data?.shared === "by" && <FaHandPointLeft />}
+                {!left && data?.shared === "with" && <FaHandPointRight />}
                 {expand ? <VscChevronDown /> : <VscChevronRight />} {iconMap[data?.group as IconGroup]}
                 {updateInput.visible ? (
                 <input
@@ -161,7 +159,6 @@ const FolderItem: React.FC<FolderItemProps> = ({
                     data={item}
                     key={index}
                     left={left}
-                    root={root}
                     handleCopyButton={handleCopyButton}
                 />
             ))}

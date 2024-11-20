@@ -9,7 +9,6 @@ interface FolderProps {
   handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
   data: FolderData|null;
   left: boolean;
-  root: string;
   handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
 }
 
@@ -20,7 +19,6 @@ const Folder: React.FC<FolderProps> = ({
   data,
   left,
   handleCopyButton,
-  root,
 }) => {
   const [nodeName, setNodeName] = useState<string>(data?.name || "");
   const [expand, setExpand] = useState<boolean>(false);
@@ -63,7 +61,7 @@ const Folder: React.FC<FolderProps> = ({
         name: e.currentTarget.value,
         isFolder: showInput.isFolder as boolean,
         group: showInput.isFolder ? "folder" : "file",
-        shared: root,
+        shared: left ? "with" : "by",
         items: [],
       };
       if(data?.id) handleInsertNode(data.id, newFolder, showInput.isFolder as boolean);
@@ -120,7 +118,6 @@ const Folder: React.FC<FolderProps> = ({
         handleUpdateFolder={handleUpdateFolder}
         data={data}
         left={left}
-        root={root}
         handleCopyButton={handleCopyButton}
         expand={expand}
         setExpand={setExpand}
@@ -149,7 +146,6 @@ const Folder: React.FC<FolderProps> = ({
         handleUpdateFolder={handleUpdateFolder}
         data={data}
         left={left}
-        root={root}
         handleCopyButton={handleCopyButton}
         expand={expand}
         setExpand={setExpand}

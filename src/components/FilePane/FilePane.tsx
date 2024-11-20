@@ -52,7 +52,6 @@ const FilePane = ({data, setData, left}: {data: FolderData | null, setData: (dat
             data={data}
             left={left}
             handleCopyButton={handleCopyButton}
-            root="with"
           />
         </div>
     );
