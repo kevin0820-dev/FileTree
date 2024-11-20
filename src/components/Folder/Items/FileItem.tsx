@@ -125,7 +125,7 @@ const FileItem: React.FC<FolderItemProps> = ({
             </button>
           )}
           {left && data && (
-            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => handleCopyButton(e, false, data.name)}>
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => {handleCopyButton(e, false, data.name); if(data.id) handleUpdateFolder(data.id, data.name, false);}}>
               <VscArrowRight />
             </button>
           )}

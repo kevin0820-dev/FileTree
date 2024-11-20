@@ -3,7 +3,7 @@ import { FolderData } from "../../types";
 import useTraverseTree from "../../hooks/use-traverse-tree";
 import Folder from "../Folder/Folder";
 
-const FilePane = ({data, setData, left}: {data: FolderData | null, setData: (data: FolderData | null) => void, left: boolean}) => {
+const FilePane = ({data, setData, left, handleCopyButton}: {data: FolderData | null, setData: (data: FolderData | null) => void, left: boolean, handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void}) => {
   const { insertNode, deleteNode, updateNode } = useTraverseTree();
   
   const handleInsertNode = (folderId: string, itemName: FolderData, isFolder: boolean) => {
@@ -25,22 +25,6 @@ const FilePane = ({data, setData, left}: {data: FolderData | null, setData: (dat
       const finalItem = updateNode(data, id, updatedValue);
       setData(finalItem);
     }
-  };
-
-  const handleCopyButton = (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => {
-    console.log("copy");
-    const copiedItem = {
-      id: new Date().getTime().toString(),
-      name: name,
-      isFolder: isFolder,
-      group: isFolder ? "folder" : "file",
-      shared: data?.shared ? data.shared : "by",
-      items: [],
-    }
-    if(data){
-      const finalItem = insertNode(data, data.id, copiedItem, isFolder);
-    }
-    if(data?.id) handleUpdateFolder(data.id, data.name);
   };
 
   return (
