@@ -67,7 +67,7 @@ function App() {
     if(myData){
       const finalItem = insertNode(myData, myData.id, copiedItem, isFolder);
     }
-    handleUpdateFolder();
+    if(myData?.id) handleUpdateFolderT(myData.id, myData.name);
   };
 
   return (

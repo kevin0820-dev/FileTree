@@ -135,7 +135,7 @@ const Folder: React.FC<FolderProps> = ({
       console.log("Copied folder items:", draggedItem, "copiedId", copiedId);
     // }
     }
-    if(data?.id) handleUpdateFolder();
+    if(data?.id) handleUpdateFolder(data.id, data.name, true);
     e.stopPropagation();
   };
 
@@ -147,7 +147,7 @@ const Folder: React.FC<FolderProps> = ({
     e.preventDefault();
     const draggedItem = JSON.parse(e.dataTransfer.getData("text/plain"));
     handleInsertNode('1', draggedItem, draggedItem.isFolder);  
-    handleUpdateFolder();
+    if(data?.id) handleUpdateFolder(data.id, data.name, true);
   }
 
   if (data && data.isFolder) {
