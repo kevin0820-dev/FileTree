@@ -2,7 +2,7 @@ import { FolderData } from '../types'; // Import your types
 
 const useTraverseTree = () => {
 
-  const share:FolderData, mydata: FolderData;
+  // const share:FolderData, mydata: FolderData;
 
   async function fetchData(id: string, username: string, password: string, secret: string) {
     const url = 'https://auth-dev.ryght.ai/auth/realms/ryght-realm/protocol/openid-connect/token';
@@ -114,7 +114,7 @@ const useTraverseTree = () => {
     return { ...tree };
   }
 
-  return { insertNode, deleteNode, updateNode };
+  return { insertNode, deleteNode, updateNode, fetchData };
 
 };
 

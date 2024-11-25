@@ -9,9 +9,11 @@ import useTraverseTree from "./hooks/use-traverse-tree";
 
 function App() {
 
+  const { insertNode, fetchData } = useTraverseTree();
   const [rightData, setRightData] = useState<FolderData | null>(folderData);
   const [myData, setMyData] = useState<FolderData | null>(customData);
-  const { insertNode } = useTraverseTree();
+  
+  fetchData("ryght-client", "kevinjohn0820@gmail.com", "greatgreat0721", "X7O6SetFrC8Q8QUYhMHxQ2c4xNmE8JnO");
 
   const handleCopyButton = useCallback((isFolder: boolean, name: string) => {
     const copiedItem = {
