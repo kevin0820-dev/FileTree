@@ -21,7 +21,7 @@ const useTraverseTree = () => {
           mode: 'no-cors',
           headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
-              "Accept":"application/x-www-form-urlencoded"
+              "Accept":"application/json"
           },
           body: data.toString(),
       });
