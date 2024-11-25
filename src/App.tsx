@@ -13,20 +13,21 @@ function App() {
   const [rightData, setRightData] = useState<FolderData | null>(folderData);
   const [myData, setMyData] = useState<FolderData | null>(customData);
   
-  fetchData("ryght-client", "kevinjohn0820@gmail.com", "greatgreat0721", "X7O6SetFrC8Q8QUYhMHxQ2c4xNmE8JnO");
+
 
   const handleCopyButton = useCallback((isFolder: boolean, name: string) => {
-    const copiedItem = {
-      id: new Date().getTime().toString(),
-      name: name,
-      isFolder: isFolder,
-      group: isFolder ? "folder" : "file",
-      shared: myData?.shared ? myData.shared : "by",
-      items: [],
-    }
-    if(myData){
-      const finalItem = insertNode(myData, myData.id, copiedItem, isFolder);
-    }
+    fetchData("ryght-client", "kevinjohn0820@gmail.com", "greatgreat0721", "X7O6SetFrC8Q8QUYhMHxQ2c4xNmE8JnO");
+    // const copiedItem = {
+    //   id: new Date().getTime().toString(),
+    //   name: name,
+    //   isFolder: isFolder,
+    //   group: isFolder ? "folder" : "file",
+    //   shared: myData?.shared ? myData.shared : "by",
+    //   items: [],
+    // }
+    // if(myData){
+    //   const finalItem = insertNode(myData, myData.id, copiedItem, isFolder);
+    // }
   }, []);
 
   return (
