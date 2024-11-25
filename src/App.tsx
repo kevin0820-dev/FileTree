@@ -3,7 +3,7 @@ import "./App.css";
 import folderData from "./data/folderData";
 import customData from "./data/myData";
 import FilePane from "./components/FilePane/FilePane";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FolderData } from "./types";
 import useTraverseTree from "./hooks/use-traverse-tree";
 
@@ -13,8 +13,7 @@ function App() {
   const [myData, setMyData] = useState<FolderData | null>(customData);
   const { insertNode } = useTraverseTree();
 
-  const handleCopyButton = (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => {
-    console.log("copy");
+  const handleCopyButton = useCallback((isFolder: boolean, name: string) => {
     const copiedItem = {
       id: new Date().getTime().toString(),
       name: name,
@@ -26,7 +25,7 @@ function App() {
     if(myData){
       const finalItem = insertNode(myData, myData.id, copiedItem, isFolder);
     }
-  };
+  }, []);
 
   return (
     <div className="App">

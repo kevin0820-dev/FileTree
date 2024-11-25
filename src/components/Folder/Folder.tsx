@@ -9,7 +9,7 @@ interface FolderProps {
   handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
   data: FolderData|null;
   left: boolean;
-  handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
+  handleCopyButton: (isFolder: boolean, name: string) => void;
 }
 
 const Folder: React.FC<FolderProps> = ({

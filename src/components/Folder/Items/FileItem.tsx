@@ -44,7 +44,7 @@ interface FolderItemProps {
     handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
     data: FolderData|null;
     left: boolean;
-    handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
+    handleCopyButton: (isFolder: boolean, name: string) => void;
     expand: boolean;
     setExpand: (expand: boolean) => void;
     handleWrapperDrop: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -125,7 +125,7 @@ const FileItem: React.FC<FolderItemProps> = ({
             </button>
           )}
           {left && data && (
-            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => {handleCopyButton(e, false, data.name); if(data.id) handleUpdateFolder(data.id, data.name, false);}}>
+            <button className="text-[16px] bg-transparent text-black border-0 cursor-pointer px-1" onClick={(e) => {handleCopyButton(false, data.name); if(data.id) handleUpdateFolder(data.id, data.name, false);}}>
               <VscArrowRight />
             </button>
           )}

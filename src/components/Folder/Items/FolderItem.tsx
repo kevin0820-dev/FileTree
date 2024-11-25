@@ -21,6 +21,7 @@ import {
 } from "react-icons/vsc";
 import { FolderData } from "../../../types";
 import Folder from "../Folder";
+import { twMerge } from 'tailwind-merge';
 
 type IconGroup = keyof typeof iconMap;
 const iconMap = {
@@ -44,7 +45,7 @@ interface FolderItemProps {
     handleUpdateFolder: (id: string, updatedValue: string, isFolder: boolean) => void;
     data: FolderData|null;
     left: boolean;
-    handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void;
+    handleCopyButton: (isFolder: boolean, name: string) => void;
     expand: boolean;
     setExpand: (expand: boolean) => void;
     handleWrapperDrop: (e: React.DragEvent<HTMLDivElement>) => void;
@@ -92,8 +93,7 @@ const FolderItem: React.FC<FolderItemProps> = ({
     return (
         <div className="h-full" onDragOver={(e) => e.preventDefault()} onDrop={handleWrapperDrop}>
             <div
-            className="group bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
-            style={{ cursor: "pointer" }}
+            className="cursor-pointer group bg-white flex items-center justify-between p-[5px] w-[300px] relative group hover:bg-[rgb(194,186,186)] hover:rounded-[5px]"
             onClick={() => setExpand(!expand)}
             draggable
             onDragStart={(e) => handleDragStart(e, data)}
@@ -137,8 +137,8 @@ const FolderItem: React.FC<FolderItemProps> = ({
             </div>
             </div>
             <div
-            id="folderContainer"
-            style={{ display: expand ? "block" : "none", marginLeft: 20 }}
+                id="folderContainer"
+                className={twMerge(expand ? "block" : 'hidden',  " ml-[20px]")}
             >
             {showInput.visible && (
                 <div className="bg-white flex items-center p-[5px] w-[300px] relative">

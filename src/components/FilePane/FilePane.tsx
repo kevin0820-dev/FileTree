@@ -3,7 +3,7 @@ import { FolderData } from "../../types";
 import useTraverseTree from "../../hooks/use-traverse-tree";
 import Folder from "../Folder/Folder";
 
-const FilePane = ({data, setData, left, handleCopyButton}: {data: FolderData | null, setData: (data: FolderData | null) => void, left: boolean, handleCopyButton: (event: React.MouseEvent<HTMLButtonElement>, isFolder: boolean, name: string) => void}) => {
+const FilePane = ({data, setData, left, handleCopyButton}: {data: FolderData | null, setData: (data: FolderData | null) => void, left: boolean, handleCopyButton: (isFolder: boolean, name: string) => void}) => {
   const { insertNode, deleteNode, updateNode } = useTraverseTree();
   
   const handleInsertNode = (folderId: string, itemName: FolderData, isFolder: boolean) => {
