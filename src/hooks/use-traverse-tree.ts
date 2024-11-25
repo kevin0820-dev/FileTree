@@ -6,7 +6,7 @@ const useTraverseTree = () => {
 
   async function fetchData(id: string, username: string, password: string, secret: string) {
     const url = 'https://auth-dev.ryght.ai/auth/realms/ryght-realm/protocol/openid-connect/token';
-    const data = {
+    const data = new URLSearchParams({
       grant_type: 'password',
       client_id: id,
       username: username,
@@ -14,14 +14,14 @@ const useTraverseTree = () => {
       client_secret: secret,
       organization: 'Ryght',
       realm: 'ryght-realm'
-    };
+  });
     try {
       const response = await fetch(url, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: JSON.stringify(data),
+          body: data.toString(),
       });
 
       if (!response.ok) {
