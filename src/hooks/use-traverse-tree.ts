@@ -16,7 +16,7 @@ const useTraverseTree = () => {
       realm: 'ryght-realm'
   });
     try {
-      const response = await fetch(`https://cors-anywhere.herokuapp.com/${url}`, {
+      const response = await fetch(url, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
