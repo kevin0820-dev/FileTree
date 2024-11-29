@@ -39,8 +39,7 @@ const useTraverseTree = () => {
   }
 
   async function fetchSharedData(token: string) {
-    // const url = 'http://api-ryght/api/v1/folders/search';
-    const url = 'https://api-dev.ryght.ai/api/v1/folders/search';
+    const url = 'https://api-dev.ryght.ai/v1/folders/search';
     const data = new URLSearchParams({
       permission: 'CAN_VIEW',
       isShared: 'true',
@@ -50,9 +49,10 @@ const useTraverseTree = () => {
       const response = await fetch(`${url}?${data.toString()}`, {
           method: 'GET',
           headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              "Accept":"application/json",
-              "Authorization": `Bearer ${token}`
+              // 'Content-Type': 'application/json',
+              // "Accept":"application/json",
+              "Authorization": `Bearer ${token}`,
+              // "accept": "*/*",
           },
       });
 

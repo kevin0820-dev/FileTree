@@ -17,12 +17,14 @@ function App() {
   useEffect(() => {
     fetchToken("ryght-client", "kevinjohn0820@gmail.com", "greatgreat0721", "X7O6SetFrC8Q8QUYhMHxQ2c4xNmE8JnO").then((token) => {
       setUserToken(token);
+      console.log(token);
     });
   }, []);
 
   useEffect(() => {
     fetchSharedData(userToken).then((sharedData) => {
       setRightData(sharedData);
+      console.log('sharedData', sharedData);
     });
   }, [userToken]);
 
