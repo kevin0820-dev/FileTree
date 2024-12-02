@@ -42,17 +42,14 @@ const useTraverseTree = () => {
     const url = 'https://api-dev.ryght.ai/v1/folders/search';
     const data = new URLSearchParams({
       permission: 'CAN_VIEW',
-      isShared: 'true',
+      // isShared: 'true',
       isRoot: 'true',
     });
     try {
       const response = await fetch(`${url}?${data.toString()}`, {
           method: 'GET',
           headers: {
-              // 'Content-Type': 'application/json',
-              // "Accept":"application/json",
               "Authorization": `Bearer ${token}`,
-              // "accept": "*/*",
           },
       });
 
@@ -61,10 +58,40 @@ const useTraverseTree = () => {
       }
 
       const result = await response.json();
+      console.log(result);
       return result;
 
     } catch (error) {
         console.error('Error fetching data:', error);
+        throw error;
+    }
+  }
+
+  async function createFolder(token: string, id: string, folderName: string) {
+    const url = 'https://api-dev.ryght.ai/v1/folders';
+    const data = new URLSearchParams({
+      name: folderName,
+      parentFolderId: id,
+    });
+    try {
+      const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              "Accept":"application/json",
+              "Authorization": `Bearer ${token}`,
+          },
+          body: data.toString(),
+      });
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return result;
+    } catch (error) {
+        console.error('Error processing data:', error);
         throw error;
     }
   }
@@ -144,7 +171,7 @@ const useTraverseTree = () => {
     return { ...tree };
   }
 
-  return { insertNode, deleteNode, updateNode, fetchToken, fetchSharedData };
+  return { insertNode, deleteNode, updateNode, fetchToken, fetchSharedData, createFolder };
 
 };
 

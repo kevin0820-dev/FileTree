@@ -1,6 +1,5 @@
 
 import "./App.css";
-import folderData from "./data/folderData";
 import customData from "./data/myData";
 import FilePane from "./components/FilePane/FilePane";
 import { useCallback, useEffect, useState } from "react";
@@ -9,8 +8,8 @@ import useTraverseTree from "./hooks/use-traverse-tree";
 
 function App() {
 
-  const { insertNode, fetchToken, fetchSharedData } = useTraverseTree();
-  const [rightData, setRightData] = useState<FolderData | null>(folderData);
+  const { insertNode, fetchToken, fetchSharedData, createFolder } = useTraverseTree();
+  const [rightData, setRightData] = useState<FolderData | null>(null);
   const [myData, setMyData] = useState<FolderData | null>(customData);
   const [userToken, setUserToken] = useState<string>("");
   
@@ -23,8 +22,19 @@ function App() {
 
   useEffect(() => {
     fetchSharedData(userToken).then((sharedData) => {
-      setRightData(sharedData);
-      console.log('sharedData', sharedData);
+      const dataset: FolderData[] = [];
+      sharedData.content.forEach((shared:any) => {
+        const data: FolderData = {
+          id: shared.id,
+          name: shared.name,
+          isFolder: true,
+          group: "folder",
+          shared: "with",
+          items: shared.items,
+        }
+        dataset.push(data);
+      });
+      setRightData(dataset[0]);
     });
   }, [userToken]);
 
